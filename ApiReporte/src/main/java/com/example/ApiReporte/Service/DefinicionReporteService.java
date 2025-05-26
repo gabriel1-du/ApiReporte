@@ -51,7 +51,7 @@ public class DefinicionReporteService {
     public DefinicionReporte getByIdDefinicionReporte(Integer reporteId) {
         Optional<DefinicionReporte> resultado = definicionReporteRepository.findById(reporteId);
         return resultado.orElse(null);
-    }
+     }
 
 
 
