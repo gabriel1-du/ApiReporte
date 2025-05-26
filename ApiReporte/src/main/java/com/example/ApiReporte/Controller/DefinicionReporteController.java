@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,7 +17,6 @@ import com.example.ApiReporte.Model.DefinicionReporte;
 import com.example.ApiReporte.Model.HistoricoReporte;
 import com.example.ApiReporte.Service.DefinicionReporteService;
 
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 
 @RestController
 @RequestMapping("/api/reportes")
@@ -26,7 +26,7 @@ public class DefinicionReporteController {
     private DefinicionReporteService reporteService;
 
     // Obtener todos los reportes históricos (GET /api/reportes)
-    @GetMapping
+    @GetMapping("/")
     public ResponseEntity<List<HistoricoReporte>> getAll() {
         return ResponseEntity.ok(reporteService.getAll());
     }
@@ -43,22 +43,24 @@ public class DefinicionReporteController {
     }
 
     // Crear un nuevo registro de ejecución de reporte (POST /api/reportes)
-    @PostMapping
+    @PostMapping  
     public ResponseEntity<?> add(@RequestBody HistoricoReporte historico) {
         HistoricoReporte nuevo = reporteService.add(historico);
         return ResponseEntity.status(HttpStatus.CREATED).body(nuevo);
     }
 
-    // Crear un nuevo tipo de reporte (POST /api/reportes/tipo)
+    //Crear un nuevo tipo de reporte
     @PostMapping("/tipo")
-    public ResponseEntity<?> crearTipoReporte(
-        @RequestParam String nombre,
-        @RequestParam String descripcion,
-        @RequestParam String queryBase
-    ) {
-        DefinicionReporte nuevo = reporteService.crearTipoReporte(nombre, descripcion, queryBase);
+        public ResponseEntity<?> crearTipoReporte(@RequestBody DefinicionReporte reporte) {
+            DefinicionReporte nuevo = reporteService.crearTipoReporte(
+            reporte.getNombre(),
+            reporte.getDescripcion(),
+            reporte.getQueryBase()
+        );
         return ResponseEntity.status(HttpStatus.CREATED).body(nuevo);
     }
+
+
 
     // Obtener un tipo de reporte por ID (GET /api/reportes/tipo/{id})
     @GetMapping("/tipo/{id}")
