@@ -15,11 +15,11 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "ejecucion_reporte") //Cambio de nombre a la tabla actual en la bda
+@Table(name = "tipo_reporte") //Cambio de nombre a la tabla actual en la bda
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class EjecucionReporte {
+public class TipoReporte {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
