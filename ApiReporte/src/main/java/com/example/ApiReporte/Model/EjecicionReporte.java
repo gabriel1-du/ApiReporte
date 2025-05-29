@@ -15,7 +15,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "historicoreporte")
+@Table(name = "ejecucion_reporte") //Cambio de nombre a la tabla actual en la bda
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -23,7 +23,7 @@ public class HistoricoReporte {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "hist_id")
+    @Column(name = "ejecucion_id")
     private Integer histId;
 
     @ManyToOne

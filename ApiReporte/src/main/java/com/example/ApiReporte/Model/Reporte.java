@@ -11,7 +11,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "reorte")
+@Table(name = "reporte")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -24,10 +24,10 @@ public class Reporte {
     private Integer reporteId;
 
     //Cambio de nombre a nombre_reporte para coincidir con la bda
-    @Column(nullable = false, length = 150)
+    @Column(name = "nombre_reporte",nullable = false, length = 150)
     private String nombre_reporte;
 
-    @Column(columnDefinition = "TEXT")
+    @Column(name = "descripcion",columnDefinition = "TEXT")
     private String descripcion;
 
     @Column(name = "query_base", columnDefinition = "TEXT")
