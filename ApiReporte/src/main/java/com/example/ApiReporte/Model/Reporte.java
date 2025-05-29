@@ -1,5 +1,7 @@
 package com.example.ApiReporte.Model;
 
+import java.security.Timestamp;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -32,6 +34,11 @@ public class Reporte {
 
     @Column(name = "query_base", columnDefinition = "TEXT")
     private String query_base;
+
+    @Column(name = "fecha_creacion_repo", columnDefinition = "timestamp")
+    private Timestamp fecha_creacion_repo; //Nuevo atributo creado
+
+    
 
 
 }

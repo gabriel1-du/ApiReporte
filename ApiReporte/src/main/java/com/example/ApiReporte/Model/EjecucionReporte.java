@@ -19,16 +19,16 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class HistoricoReporte {
+public class EjecucionReporte {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ejecucion_id")
-    private Integer histId;
+    private Integer ejecucion_id;//Modificacion a corte a la base de datos
 
     @ManyToOne
     @JoinColumn(name = "reporte_id", nullable = false)
-    private DefinicionReporte reporte; //Cracion de la coneccion con la tabla reporte id
+    private Reporte reporte; //Cracion de la coneccion con la tabla reporte id
 
     @Column(name = "usuario_id", nullable = false)
     private Integer usuarioId;
