@@ -11,25 +11,27 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "definicionreporte")
+@Table(name = "reorte")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class DefinicionReporte {
+//Ahora esta clase esta basada en la reciente entidad llamada "reporte"
+public class Reporte {
 
-    @Id
+    @Id //Cambio en el nombre da la columna
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "reporte_id")
     private Integer reporteId;
 
+    //Cambio de nombre a nombre_reporte para coincidir con la bda
     @Column(nullable = false, length = 150)
-    private String nombre;
+    private String nombre_reporte;
 
     @Column(columnDefinition = "TEXT")
     private String descripcion;
 
     @Column(name = "query_base", columnDefinition = "TEXT")
-    private String queryBase;
+    private String query_base;
 
 
 }
