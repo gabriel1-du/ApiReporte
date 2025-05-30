@@ -11,7 +11,7 @@ import com.example.ApiReporte.Repository.TipoReporteRepository;
 import com.example.ApiReporte.Repository.ReporteRepository;
 
 @Service
-public class DefinicionReporteService {
+public class ReporteService {
     
     //Inyeccion de repositorios
 
@@ -27,8 +27,8 @@ public class DefinicionReporteService {
     //---------------
 
     //Obtener todos los reportes
-    public List<TipoReporte> getAll(){ 
-        return tipoReporteRepository.findAll();
+    public List<Reporte> getAll(){ 
+        return reporteRepository.findAll();
     }
    
 

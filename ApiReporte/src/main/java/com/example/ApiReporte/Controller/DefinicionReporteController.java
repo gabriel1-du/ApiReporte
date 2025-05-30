@@ -10,31 +10,50 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.ApiReporte.Model.DefinicionReporte;
-import com.example.ApiReporte.Model.HistoricoReporte;
-import com.example.ApiReporte.Service.DefinicionReporteService;
+import com.example.ApiReporte.Model.Reporte;
+import com.example.ApiReporte.Model.TipoReporte;
+import com.example.ApiReporte.Service.ReporteService;
 
 
 @RestController
 @RequestMapping("/api/reportes")
 public class DefinicionReporteController {
     
+    //------------------
+    //iNYECCION DE SERVICE
+    //--------------------
     @Autowired
-    private DefinicionReporteService reporteService;
+    private ReporteService reporteService;
 
-    // Obtener todos los reportes históricos (GET /api/reportes)
+    //----------
+    //Metodos GET
+    //----------
+
+    // Obtener un tipo de reporte por ID (GET /api/reportes/tipo/{id})
+    @GetMapping("/tipo/{id}")
+    public ResponseEntity<?> getDefinicionReporteById(@PathVariable Integer tipo_reporte_id) {
+        TipoReporte tipo = reporteService.getByIdTipoReporte(tipo_reporte_id);
+        if (tipo != null) {
+            return ResponseEntity.ok(tipo);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Tipo de reporte no encontrado");
+        }
+    }
+
+
+
+    // Obtener todos los REPORTES
     @GetMapping("/")
-    public ResponseEntity<List<HistoricoReporte>> getAll() {
+    public ResponseEntity<List<Reporte>> getAll() {
         return ResponseEntity.ok(reporteService.getAll());
     }
 
-    // Obtener un historial de ejecución por ID (GET /api/reportes/{id})
+    // Obtener un REPORTE por ID
     @GetMapping("/{id}")
-    public ResponseEntity<?> getById(@PathVariable Integer id) {
-        HistoricoReporte reporte = reporteService.getbyId(id);
+    public ResponseEntity<?> getById(@PathVariable Integer reporteId) {
+        Reporte reporte = reporteService.getbyId(reporteId);
         if (reporte != null) {
             return ResponseEntity.ok(reporte);
         } else {
@@ -42,35 +61,25 @@ public class DefinicionReporteController {
         }
     }
 
-    // Crear un nuevo registro de ejecución de reporte (POST /api/reportes)
+    //---------------------
+    //Obtener metodos POST
+    //---------------------
+    // Crear Reporte
     @PostMapping  
-    public ResponseEntity<?> add(@RequestBody HistoricoReporte historico) {
-        HistoricoReporte nuevo = reporteService.add(historico);
+    public ResponseEntity<?> add(@RequestBody Reporte reporte) {
+        Reporte nuevo = reporteService.add(reporte);
         return ResponseEntity.status(HttpStatus.CREATED).body(nuevo);
     }
 
-    //Crear un nuevo tipo de reporte
+    //CREAR un nuevo TIPO REPORTE
     @PostMapping("/tipo")
-        public ResponseEntity<?> crearTipoReporte(@RequestBody DefinicionReporte reporte) {
-            DefinicionReporte nuevo = reporteService.crearTipoReporte(
-            reporte.getNombre(),
-            reporte.getDescripcion(),
-            reporte.getQueryBase()
+    public ResponseEntity<?> crearTipoReporte(@RequestBody TipoReporte tipoReporte) {
+        TipoReporte nuevo = reporteService.crearTipoReporte(
+            tipoReporte.getReporte(),             
+            tipoReporte.getUsuarioId(),             
+            tipoReporte.getTipo_reporte()            
         );
         return ResponseEntity.status(HttpStatus.CREATED).body(nuevo);
-    }
-
-
-
-    // Obtener un tipo de reporte por ID (GET /api/reportes/tipo/{id})
-    @GetMapping("/tipo/{id}")
-    public ResponseEntity<?> getDefinicionReporteById(@PathVariable Integer id) {
-        DefinicionReporte tipo = reporteService.getByIdDefinicionReporte(id);
-        if (tipo != null) {
-            return ResponseEntity.ok(tipo);
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Tipo de reporte no encontrado");
-        }
     }
 
 
